@@ -31,7 +31,7 @@
 
   <section>
     <title>Character Set</title>
-    <p>In Erlang 4.8/OTP R5A the syntax of Erlang tokens was extended to
+    <p>Since Erlang 4.8/OTP R5A, the syntax of Erlang tokens is extended to
       allow the use of the full ISO-8859-1 (Latin-1) character set. This
       is noticeable in the following ways:</p>
     <list type="bulleted">
@@ -98,25 +98,25 @@
         <cell align="center" valign="middle">&oslash; - &yuml;</cell>
         <cell align="left" valign="middle">Lowercase letters</cell>
       </row>
-      <tcaption>Character Classes.</tcaption>
+      <tcaption>Character Classes</tcaption>
     </table>
-    <p>In Erlang/OTP R16B the syntax of Erlang tokens was extended to
-       handle Unicode. To begin with the support is limited to
-       strings, but Erlang/OTP 18 is expected to handle Unicode atoms
-       as well. More about the usage of Unicode in Erlang source files
-       can be found in <seealso
-       marker="stdlib:unicode_usage#unicode_in_erlang">STDLIB's User's
+    <p>Since Erlang/OTP R16B, the syntax of Erlang tokens is extended to
+       handle Unicode. To begin with, the support is limited to
+       strings, but Erlang/OTP R18 is expected to handle Unicode atoms
+       as well. For more information about the using Unicode in Erlang source files,
+       see <seealso
+       marker="stdlib:unicode_usage#unicode_in_erlang">STDLIB User's
        Guide</seealso>.</p>
   </section>
   <section>
     <title>Source File Encoding</title>
-    <p>The Erlang source file <marker
-      id="encoding">encoding</marker> is selected by a
+<marker id="encoding"></marker>
+    <p>The Erlang source file <c>encoding</c> is selected by a
       comment in one of the first two lines of the source file. The
       first string that matches the regular expression
       <c>coding\s*[:=]\s*([-a-zA-Z0-9])+</c> selects the encoding. If
-      the matching string is not a valid encoding it is ignored. The
-      valid encodings are <c>Latin-1</c> and <c>UTF-8</c> where the
+      the matching string is an invalid encoding, it is ignored. The
+      valid encodings are <c>Latin-1</c> and <c>UTF-8</c>, where the
       case of the characters can be chosen freely.</p>
     <p>The following example selects UTF-8 as default encoding:</p>
       <pre>
@@ -126,7 +126,7 @@
 %% For this file we have chosen encoding = Latin-1</pre>
       <pre>
 %% -*- coding: latin-1 -*-</pre>
-    <p>The default encoding for Erlang source files was changed from
-      Latin-1 to UTF-8 in Erlang OTP 17.0.</p>
+    <p>The default encoding for Erlang source files is changed from
+      Latin-1 to UTF-8 since Erlang/OTP R17.0.</p>
   </section>
 </chapter>
