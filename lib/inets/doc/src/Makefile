@@ -51,7 +51,6 @@ XML_REF3_FILES = \
 	http_uri.xml\
 	httpc.xml\
 	httpd.xml \
-	httpd_conf.xml \
 	httpd_socket.xml \
 	httpd_util.xml \
 	mod_alias.xml \
