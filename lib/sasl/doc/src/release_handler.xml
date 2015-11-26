@@ -160,7 +160,7 @@
       system. However, in this case the user must somehow ensure that
       correct boot scripts and configuration files are used if
       the system must be restarted.</p>
-    <p>There are functions for using another file structure
+    <p>Functions are provided for using another file structure
       than the structure defined in OTP. These functions can be used
       to test a release upgrade locally.</p>
   </description>
@@ -180,8 +180,8 @@
       <desc>
         <p>Checks if the specified version <c>Vsn</c> of the release
           can be installed. The release must not have status
-          <c>current</c>. Issues warnings if <c>relup</c> or
-          <c>sys.config</c> is not present. If <c>relup</c> is present,
+          <c>current</c>. Issues warnings if <c>relup</c> file or
+          <c>sys.config</c> is not present. If <c>relup</c> file is present,
           its contents are checked and <c>{error,Reason}</c> is
           returned if an error is found. Also checks that all required
           applications are present and that all new code can be loaded;
@@ -535,7 +535,7 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
       <desc>
         <p>Upgrades an application <c>App</c> from the current
           version to a new version located in <c>Dir</c> according to
-          the <c>.appup</c> script.</p>
+          the <c>.appup</c> file.</p>
         <p><c>App</c> is the name of the application, which must be
           started. <c>Dir</c> is the new library directory of
           <c>App</c>. The corresponding modules as well as
@@ -584,7 +584,7 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
       <desc>
         <p>Downgrades an application <c>App</c> from the current
           version to a previous version <c>OldVsn</c> located in
-          <c>Dir</c> according to the <c>.appup</c> script.</p>
+          <c>Dir</c> according to the <c>.appup</c> file.</p>
         <p><c>App</c> is the name of the application, which must be
           started. <c>OldVsn</c> is the previous application version
           and can be omitted if <c>Dir</c> is of
@@ -624,8 +624,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
         <v>App = atom()</v>
         <v>Dir = string()</v>
         <v>NewVsn = string()</v>
-        <v>Script = Instructions, see
-	  <seealso marker="appup">appup(4)</seealso></v>
+        <v>Script = Instructions</v>
+	<d>See <seealso marker="appup"><c>appup(4)</c></seealso></d>
       </type>
       <desc>
         <p>Tries to find an application upgrade script for <c>App</c>
@@ -660,8 +660,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
       <type>
         <v>App = atom()</v>
         <v>OldVsn = Dir = string()</v>
-        <v>Script = Instructions, see
-	  <seealso marker="appup">appup(4)</seealso></v>
+        <v>Script = Instructions</v>
+	<d>See <seealso marker="appup"><c>appup(4)</c></seealso></d>
       </type>
       <desc>
         <p>Tries to find an application downgrade script for <c>App</c>
@@ -697,7 +697,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
       <type>
         <v>App = atom()</v>
         <v>ToVsn = ToDir = string()</v>
-        <v>Script, see upgrade_script/2, downgrade_script/3</v>
+        <v>Script</v>
+	<d>See <c>upgrade_script/2</c>, <c>downgrade_script/3</c></d>
         <v>Unpurged = [Module]</v>
         <v>&nbsp;Module = atom()</v>
         <v>Reason = term()</v>

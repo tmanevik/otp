@@ -34,7 +34,7 @@
   <modulesummary>A Set of Release Handling Tools</modulesummary>
   <description>
     <p>This module contains functions to generate boot scripts
-      (<c>.boot</c>, <c>.script</c>), release upgrade scripts
+      (<c>.boot</c>, <c>.script</c>), a release upgrade file
       (<c>relup</c>), and release packages.</p>
   </description>
 
@@ -56,15 +56,13 @@
         <v>&nbsp;Warnings = Error = term()</v>
       </type>
       <desc>
-        <p>Generates a release upgrade file <c>relup</c> containing
-          instructions that describes how to upgrade from or downgrade
-	  to one or more previous releases, and how to downgrade to some of
-          the previous releases. The instructions are used by
-          <c>release_handler</c> when installing a new version of a
-          release in runtime.</p>
-        <p>By default, <c>relup</c> is located in the current working
+        <p>Generates a release upgrade file <c>relup</c> containing instructions 
+	for upgrading from or downgrading to one or more previous releases. 
+	The instructions are used by <c>release_handler</c> when installing 
+	a new version of a release in runtime.</p>
+        <p>By default, <c>relup</c> file is located in the current working
           directory. If option <c>{outdir,Dir}</c> is specified,
-          <c>relup</c> is located in <c>Dir</c> instead.</p>
+          the <c>relup</c> file is located in <c>Dir</c> instead.</p>
         <p>The release resource file <c>Name.rel</c> is compared with
           all release resource files <c>Name2.rel</c>, specified in
           <c>UpFrom</c> and <c>DownTo</c>. For each such pair, the
@@ -96,8 +94,8 @@
           application upgrade files <c>App.appup</c>, sorted in
           the same order as when generating a boot script, see
           <c>make_script/1,2</c>. High-level instructions are translated
-          into low-level instructions and the result is printed to
-          <c>relup</c>.</p>
+          into low-level instructions and the result is printed to the
+          <c>relup</c> file.</p>
         <p>The optional <c>Descr</c> parameter is included "as is" in
           the <c>relup</c> file, see
           <seealso marker="relup"><c>relup(4)</c></seealso>. Defaults to

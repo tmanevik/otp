@@ -52,9 +52,9 @@
           {Key, RegExp, re, no}</v>
         <v>Key = term()</v>
         <v>Value = term()</v>
-        <v>RegExp = string() | {string(), Options} | <seealso marker="stdlib:re#type/mp">re:mp()</seealso> | {<seealso marker="stdlib:re#type/mp">re:mp()</seealso>, Options}</v>
+        <v>RegExp = string() | {string(), Options} | <seealso marker="stdlib:re#type_mp"><c>re:mp()</c></seealso> | {<seealso marker="stdlib:re#type_mp"><c>re:mp()</c></seealso>, Options}</v>
         <v>Dates = {DateFrom, DateTo} | {DateFrom, from} | {DateTo, to}</v>
-        <v>DateFrom = DateTo = <seealso marker="stdlib:calendar#type/datetime">calendar:datetime()</seealso></v>
+        <v>DateFrom = DateTo = <seealso marker="stdlib:calendar#type_datetime"><c>calendar:datetime()</c></seealso></v>
       </type>
       <desc>
         <p>Displays the reports that match the provided filters.</p>
@@ -88,7 +88,7 @@
         <v>RegExp = string() | {string(), Options} | <seealso marker="stdlib:re#type/mp">re:mp()</seealso> | {<seealso marker="stdlib:re#type/mp">re:mp()</seealso>, Options}</v>
       </type>
       <desc>
-        <p>All reports that match the regular expression <c>RegExp</c>
+        <p>All reports matching the regular expression <c>RegExp</c>
           are displayed. <c>RegExp</c> can be any of the following:</p>
         <list type="bulleted">
           <item>A string containing the regular expression</item>
@@ -166,7 +166,7 @@
       <name>show(Report)</name>
       <fsummary>Displays reports.</fsummary>
       <type>
-        <v>Report = int() | type()</v>
+        <v>Report = integer() | type()</v>
       </type>
       <desc>
         <p>If argument <c>type</c> is specified, all loaded reports of this
@@ -186,7 +186,7 @@
           {report_dir, DirString} | {type, ReportType} |
           {abort_on_error, Bool}</v>
         <v>FileName = string() | atom() | pid()</v>
-        <v>MaxNoOfReports = int() | all</v>
+        <v>MaxNoOfReports = integer() | all</v>
         <v>DirString = string()</v>
         <v>ReportType = type() | [type()] | all</v>
         <v>Bool = boolean()</v>
@@ -199,7 +199,7 @@
           started, the files in the specified directory are
           scanned. The other functions assume that the server has
 	  started.</p>
-	<p>The valid options are:</p>
+	<p><em>Options:</em></p>
         <taglist>
 	<tag><c>{start_log, FileName}</c></tag>
           <item><p>Starts logging to file,
@@ -216,7 +216,7 @@
         <tag><c>{report_dir, DirString}</c></tag>
           <item><p>Defines the directory where
           the error log files are located. Default is
-          the directory specified by the application environment
+          the directory specified by application environment
           variable <c>error_logger_mf_dir</c>,
           see <seealso marker="sasl_app">sasl(6)</seealso>.</p></item>
         <tag><c>{type, ReportType}</c></tag>

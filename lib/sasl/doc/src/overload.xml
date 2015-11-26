@@ -42,8 +42,8 @@
       the job must not be started.</p>
     <p><c>overload</c> is part of the <c>SASL</c> application and all
       configuration parameters are defined there.</p>
-    <p>A set of two intensities are maintained, the <em>total intensity</em>
-      and the <em>accept intensity</em>. For that purpose,
+    <p>A set of two intensities are maintained, the <c>total intensity</c>
+      and the <c>accept intensity</c>. For that purpose,
       there are two configuration parameters, <c>MaxIntensity</c>
       and <c>Weight</c>; both are measured in 1/second.</p>
     <p>Then total and accept intensities are calculated as
@@ -52,16 +52,16 @@
       previous call was <c>T(n-1)</c>.</p>
     <list type="bulleted">
       <item>
-        <p>The current <em>total intensity</em>, denoted
+        <p>The current <c>total intensity</c>, denoted
           <c>TI(n)</c>, is calculated according to the formula</p>
         <p><c>TI(n) = exp(-Weight*(T(n) - T(n-1)) * TI(n-1) +  Weight</c>,</p>
-        <p>where <c>TI(n-1)</c> is the previous total intensity.</p>
+        <p>where <c>TI(n-1)</c> is the previous <c>total intensity</c>.</p>
       </item>
       <item>
         <p>The current <c>accept intensity</c>, denoted
           <c>AI(n)</c>, is determined by the formula</p>
         <p><c>AI(n) = exp(-Weight*(T(n) - T(n-1)) * AI(n-1) + Weight</c>,</p>
-        <p>where <c>AI(n-1)</c> is the previous accept intensity,
+        <p>where <c>AI(n-1)</c> is the previous <c>accept intensity</c>,
           if the value of <c>exp(-Weight*(T(n) - T(n-1)) * AI(n-1)</c>
           is less than <c>MaxIntensity</c>. Otherwise the value is</p>
         <p><c>AI(n) = exp(-Weight*(T(n) - T(n-1)) * AI(n-1)</c></p>
@@ -73,7 +73,7 @@
       <c>Weight</c>, <c>T = 1/Weight</c>, can be thought of as the
       "time constant" of the intensity calculation formulas. For example,
       if <c>Weight = 0.1</c>, a change in the underlying input intensity is
-      reflected in the <em>total</em> and <em>accept intensities</em> within
+      reflected in <c>total intensity</c> and <c>accept intensity</c> within
       about 10 seconds.</p>
     <p>The overload process defines one alarm, which it sets using
       <c>alarm_handler:set_alarm(Alarm)</c>. <c>Alarm</c> is defined
@@ -81,14 +81,14 @@
     <taglist>
       <tag><c>{overload, []}</c></tag>
       <item>
-        <p>This alarm is set when the current accept intensity exceeds
+        <p>This alarm is set when the current <c>accept intensity</c> exceeds
           <c>MaxIntensity</c>.</p>
       </item>
     </taglist>
-    <p>A new request will not be accepted until the current accept
-      intensity has fallen below <c>MaxIntensity</c>. To prevent the
+    <p>A new request is not accepted until the current <c>accept
+      intensity</c> has fallen below <c>MaxIntensity</c>. To prevent the
       overload process from generating many set/reset alarms, the
-      alarm is not reset until the current accept intensity has fallen
+      alarm is not reset until the current <c>accept intensity</c> has fallen
       below 75% of <c>MaxIntensity</c>; it is not until then that
       the alarm can be set again.</p>
   </description>
@@ -99,7 +99,7 @@
       <fsummary>Requests to proceed with current job.</fsummary>
       <desc>
         <p>Returns <c>accept</c> or <c>reject</c> depending on the
-          current value of the accept intensity.</p>
+          current value of the <c>accept intensity</c>.</p>
         <p>The application
           calling this function is to proceed with the job in
           question if the return value is <c>accept</c>; otherwise it

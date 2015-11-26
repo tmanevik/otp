@@ -74,7 +74,7 @@
       <tag><c>{progress, Term}</c></tag>
         <item><p>Sets the "progress" of the initialization
 	  program. The
-          <seealso marker="erts:init#get_status/0">init:get_status/0</seealso>
+          <seealso marker="erts:init#get_status/0"><c>init:get_status/0</c></seealso>
 	  function returns the current value of the progress, which is
       <c>{InternalStatus,Term}</c>.</p></item>
       <tag><c>{path, [Dir]}</c></tag>
@@ -115,7 +115,7 @@
         from the directories specified in <c>Path</c>. The script
         interpreter fetches the appropriate module by calling
         <seealso marker="erts:erl_prim_loader#get_file/1">
-	  erl_prim_loader:get_file(Mod)</seealso>. A fatal error
+	  <c>erl_prim_loader:get_file(Mod)</c></seealso>. A fatal error
         that terminates the system occurs if the module cannot be
         located.</p></item>
       <tag><c>{kernel_load_completed}</c></tag>
@@ -145,7 +145,7 @@
       <p>In an interactive system, the code loader provides
         demand-driven code loading, but in an embedded system
         the code loader loads all code immediately. The same
-        version of <seealso marker="kernel:code">code</seealso>
+        version of <seealso marker="kernel:code"><c>code</c></seealso>
 	is used in both cases. The code server calls
 	<seealso marker="erts:init#get_argument/1">init:get_argument(mode)</seealso>
 	to determine if it is to run in demand mode or non-demand
