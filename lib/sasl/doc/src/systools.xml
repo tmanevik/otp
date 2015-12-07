@@ -58,8 +58,9 @@
       <desc>
         <p>Generates a release upgrade file <c>relup</c> containing instructions 
 	for upgrading from or downgrading to one or more previous releases. 
-	The instructions are used by <c>release_handler</c> when installing 
-	a new version of a release in runtime.</p>
+	The instructions are used by 
+	<seealso marker="release_handler"><c>release_handler</c></seealso> 
+	when installing a new version of a release in runtime.</p>
         <p>By default, <c>relup</c> file is located in the current working
           directory. If option <c>{outdir,Dir}</c> is specified,
           the <c>relup</c> file is located in <c>Dir</c> instead.</p>
@@ -93,7 +94,8 @@
           between application versions are fetched from the relevant
           application upgrade files <c>App.appup</c>, sorted in
           the same order as when generating a boot script, see
-          <c>make_script/1,2</c>. High-level instructions are translated
+          <seealso marker="#make_script/1"><c>make_script/1,2</c></seealso>. 
+	  High-level instructions are translated
           into low-level instructions and the result is printed to the
           <c>relup</c> file.</p>
         <p>The optional <c>Descr</c> parameter is included "as is" in
@@ -281,8 +283,9 @@
       <desc>
         <p>Creates a release package file <c>Name.tar.gz</c>.
           This file must be uncompressed and unpacked on the target
-          system using <c>release_handler</c> before the new
-          release can be installed.</p>
+          system using 
+	  <seealso marker="release_handler"><c>release_handler</c></seealso> 
+	  before the new release can be installed.</p>
         <p>The release resource file <c>Name.rel</c> is read to determine
           which applications are included in the release. Then
           the relevant application resource files <c>App.app</c> are
@@ -349,12 +352,14 @@ myapp-1/ebin/myapp.app
         <p>If the release package is to contain a new Erlang runtime
           system, the <c>bin</c> directory of the specified runtime
           system <c>{erts,Dir}</c> is copied to <c>erts-ErtsVsn/bin</c>.</p>
-        <p>All checks with the <c>make_script</c> function
+        <p>All checks with function 
+	<seealso marker="#make_script/1"><c>make_script</c></seealso>
           are performed before the release package is created.
           Options <c>src_tests</c> and <c>exref</c> are also
           valid here.</p>
         <p>The return value and the handling of errors and warnings
-          are the same as described for <c>make_script</c> earlier.</p>
+          are the same as described for 
+	<seealso marker="#make_script/1"><c>make_script</c></seealso>.</p>
       </desc>
     </func>
 
@@ -370,8 +375,9 @@ myapp-1/ebin/myapp.app
           This function transforms the <c>File.script</c> boot script
           to a binary term, which is stored in the <c>File.boot</c>
           file.</p>
-        <p>A boot script generated using the <c>make_script</c>
-          function is already transformed to the binary form.</p>
+        <p>A boot script generated using 
+	<seealso marker="#make_script/1"><c>make_script</c></seealso>
+          is already transformed to the binary form.</p>
       </desc>
     </func>
   </funcs>

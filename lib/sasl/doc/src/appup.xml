@@ -33,8 +33,9 @@
   <description>
     <p>The <em>application upgrade file</em> defines how an application
       is upgraded or downgraded in a running system.</p>
-    <p>This file is used by the functions in <c>systools</c> when
-      generating a release upgrade file <c>relup</c>.</p>
+    <p>This file is used by the functions in 
+    <seealso marker="systools"><c>systools</c></seealso> 
+    when generating a release upgrade file <c>relup</c>.</p>
   </description>
 
   <section>
@@ -100,9 +101,10 @@
       <c>Mod</c> is listed in the <c>Modules</c> part of the child
       specification used to start the process, see
       <seealso marker="stdlib:supervisor"><c>supervisor(3)</c></seealso>.
-      In the case of <c>gen_event</c>, an event manager process is
-      said to use <c>Mod</c> if <c>Mod</c> is an installed event
-      handler.</p>
+      In the case of 
+      <seealso marker="stdlib:gen_event"><c>gen_event</c></seealso>, 
+      an event manager process is said to use <c>Mod</c> if <c>Mod</c> 
+      is an installed event handler.</p>
 
     <section>
     <title>High-Level Instructions</title>
@@ -124,16 +126,20 @@
   DepMods = [Mod]</pre>
     <p>Synchronized code replacement of processes using module
       <c>Mod</c>.</p>
-    <p>All those processes are suspended using <c>sys:suspend</c>,
+    <p>All those processes are suspended using 
+      <seealso marker="stdlib:sys#suspend/1"><c>sys:suspend</c></seealso>,
       the new module version is loaded, and
-      then the processes are resumed using <c>sys:resume</c>.</p>
+      then the processes are resumed using 
+      <seealso marker="stdlib:sys#resume/1"><c>sys:resume</c></seealso>.</p>
     <taglist>
     <tag><c>Change</c></tag>
       <item><p>Defaults to <c>soft</c> and defines the type of
       code change. If it is set to <c>{advanced,Extra}</c>, implemented
-      processes using <c>gen_server</c>, <c>gen_fsm</c>, or
-      <c>gen_event</c> transform
-      their internal state by calling the callback function
+      processes using 
+      <seealso marker="stdlib:gen_server"><c>gen_server</c></seealso>, 
+      <seealso marker="stdlib:gen_fsm"><c>gen_fsm</c></seealso>, or
+      <seealso marker="stdlib:gen_event"><c>gen_event</c></seealso> 
+      transform their internal state by calling the callback function
       <c>code_change</c>. Special processes call the callback
       function <c>system_code_change/4</c>. In both cases, the term
       <c>Extra</c> is passed as an argument to the callback
@@ -143,7 +149,8 @@
       what action to take with processes executing old code
       before loading the new module version. If the value
       is <c>brutal_purge</c>, the processes are killed. If the value is
-      <c>soft_purge</c>, <c>release_handler:install_release/1</c>
+      <c>soft_purge</c>, 
+      <seealso marker="release_handler#install_release/1"><c>release_handler:install_release/1</c></seealso>
       returns <c>{error,{old_processes,Mod}}</c>.</p></item>
     <tag><c>PostPurge</c></tag>
       <item><p>Defaults to <c>brutal_purge</c>. It controls
@@ -164,7 +171,8 @@
     <tag><c>Timeout</c></tag>
       <item><p>Defines the time-out when suspending processes.
       If no value or <c>default</c> is specified, the default value for
-      <c>sys:suspend</c> is used.</p></item>
+      <seealso marker="stdlib:sys#suspend/1"><c>sys:suspend</c></seealso> 
+      is used.</p></item>
     <tag><c>ModType</c></tag>
       <item><p>Defaults to <c>dynamic</c>. It specifies if
       the code is "dynamic", that is, if a process using the module
@@ -290,7 +298,9 @@ point_of_no_return</pre>
       the process to die, either because it crashes when it
       spontaneously switches to new code, or as a result of a purge
       operation. If no <c>Timeout</c> is specified or <c>default</c> is
-      specified, the default value for <c>sys:suspend</c> is used.</p>
+      specified, the default value for 
+      <seealso marker="stdlib:sys#suspend/1"><c>sys:suspend</c></seealso> 
+      is used.</p>
     <pre>
 {resume, [Mod]}
   Mod = atom()</pre>
@@ -304,20 +314,22 @@ point_of_no_return</pre>
     <p><c>Mode</c> defaults to <c>up</c> and specifies if it is an
       upgrade or downgrade. This instruction sends a <c>code_change</c>
       system message to all processes using a module <c>Mod</c> by
-      calling the function <c>sys:change_code</c>, passing term
-      <c>Extra</c> as argument.</p>
+      calling function 
+      <seealso marker="stdlib:sys#change_code/4"><c>sys:change_code</c></seealso>, 
+      passing term <c>Extra</c> as argument.</p>
     <pre>
 {stop, [Mod]}
   Mod = atom()</pre>
     <p>Stops all processes using a module <c>Mod</c> by calling
-      <c>supervisor:terminate_child/2</c>. This instruction is useful
+      <seealso marker="stdlib:supervisor#terminate_child/2"><c>supervisor:terminate_child/2</c></seealso>. 
+      This instruction is useful
       when the simplest way to change code is to stop and restart the
       processes that run the code.</p>
     <pre>
 {start, [Mod]}
   Mod = atom()</pre>
     <p>Starts all stopped processes using a module <c>Mod</c> by calling
-      <c>supervisor:restart_child/2</c>.</p>
+      <seealso marker="stdlib:supervisor#restart_child/2"><c>supervisor:restart_child/2</c></seealso>.</p>
     <pre>
 {sync_nodes, Id, [Node]}
 {sync_nodes, Id, {M, F, A}}
@@ -341,9 +353,9 @@ point_of_no_return</pre>
     <p>Evaluates <c>apply(M, F, A)</c>.</p>
     <p>If the instruction appears before instruction
       <c>point_of_no_return</c>, a failure is caught.
-      <c>release_handler:install_release/1</c> then returns
-      <c>{error,{'EXIT',Reason}}</c>, unless <c>{error,Error}</c> is
-      thrown or returned. Then it returns <c>{error,Error}</c>.</p>
+      <seealso marker="release_handler#install_release/1"><c>release_handler:install_release/1</c></seealso> 
+      then returns <c>{error,{'EXIT',Reason}}</c>, unless <c>{error,Error}</c> 
+      is thrown or returned. Then it returns <c>{error,Error}</c>.</p>
     <p>If the instruction appears after instruction
       <c>point_of_no_return</c> and the function call fails, the
       system is restarted.</p>

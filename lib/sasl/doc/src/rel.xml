@@ -35,9 +35,10 @@
   <description>
     <p>The <em>release resource file</em> specifies which applications
       are included in a release (system) based on Erlang/OTP.</p>
-    <p>This file is used by the functions in <c>systools</c> when generating
-      start scripts (<c>.script</c>, <c>.boot</c>) and release upgrade
-      files (<c>relup</c>).</p>
+    <p>This file is used by the functions in 
+    <seealso marker="systools"><c>systools</c></seealso> 
+    when generating start scripts (<c>.script</c>, <c>.boot</c>) and 
+    release upgrade files (<c>relup</c>).</p>
   </description>
 
   <section>

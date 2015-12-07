@@ -43,7 +43,7 @@
       The release package is to be located in the <c>$ROOT/releases</c>
       directory of the previous version of the release, where
       <c>$ROOT</c> is the installation root directory,
-      <c>code:root_dir()</c>.
+      <seealso marker="kernel:code#root_dir/0"><c>code:root_dir()</c></seealso>.
       Another <c>releases</c> directory can be specified using the <c>SASL</c>
       configuration parameter <c>releases_dir</c> or the OS environment
       variable <c>RELDIR</c>. The release handler must have write access
@@ -132,7 +132,7 @@
       is made permanent.</p>
     <p>The release handler at a node running on a diskless machine,
       or with a read-only file system, must be configured accordingly
-      using the following <c>sasl</c> configuration parameters (for
+      using the following <c>SASL</c> configuration parameters (for
       details, see <seealso marker="sasl_app">sasl(6)</seealso>):</p>
     <taglist>
       <tag><c>masters</c></tag>
@@ -189,13 +189,14 @@
         <p>Evaluates all instructions that occur before
           the <c>point_of_no_return</c> instruction in the release
           upgrade script.</p>
-        <p>Returns the same as <c>install_release/1</c>. <c>Descr</c>
-          defaults to "" if no <c>relup</c> file is found.</p>
+        <p>Returns the same as 
+	<seealso marker="#install_release/1">install_release/1</seealso>.
+	<c>Descr</c> defaults to "" if no <c>relup</c> file is found.</p>
         <p>If option <c>purge</c> is specified, all old code that can
           be soft-purged is purged after all other checks are
           successfully completed. This can be useful to
           reduce the time needed by <seealso
-          marker="#install_release/1">install_release</seealso>.</p>
+          marker="#install_release/1">install_release/1</seealso>.</p>
       </desc>
     </func>
 
@@ -244,7 +245,8 @@
           <c>start.boot</c>, <c>relup</c>, and <c>sys.config</c>.</p>
         <p>The function can be called, for example, when these files
           are generated at the target. The function is to be called after
-          <c>set_unpacked/2</c> has been called.</p>
+          <seealso marker="#set_unpacked/2"><c>set_unpacked/2</c></seealso> 
+	has been called.</p>
       </desc>
     </func>
 
@@ -295,23 +297,28 @@
           <c>{error,Reason}</c> and the original application
           specifications are restored. If a non-recoverable error
           occurs, the system is restarted.</p>
-        <p>The options are as follows:</p>
+        <p><em>Options</em>:</p>
         <taglist>
           <tag><c>error_action</c></tag>
             <item><p>Defines if the node is to be
-            restarted (<c>init:restart()</c>) or rebooted
-            (<c>init:reboot()</c>) if there is an error during
+            restarted 
+	    (<seealso marker="erts:init#restart/0"><c>init:restart()</c></seealso>) 
+	    or rebooted
+            (<seealso marker="erts:init#reboot/0"><c>init:reboot()</c></seealso>) 
+	    if there is an error during
             the installation. Default is <c>restart</c>.</p></item>
           <tag><c>code_change_timeout</c></tag>
             <item><p>Defines the time-out
-            for all calls to <c>sys:change_code</c>. If no value is
-            specified or <c>default</c> is specified, the default value
-            defined in <c>sys</c> is used.</p></item>
+            for all calls to 
+	    <seealso marker="stdlib:sys#change_code/4"><c>stdlib:sys:change_code</c></seealso>. 
+	    If no value is specified or <c>default</c> is specified, the 
+	    default value defined in <c>sys</c> is used.</p></item>
           <tag><c>suspend_timeout</c></tag>
             <item><p>Defines the time-out for 
-            all calls to <c>sys:suspend</c>. If no value is specified,
-            the values defined by the <c>Timeout</c> parameter of
-            the <c>upgrade</c> or <c>suspend</c> instructions are used.
+            all calls to 
+	    <seealso marker="stdlib:sys#suspend/1"><c>stdlib:sys:suspend</c></seealso>. 
+	    If no value is specified, the values defined by the <c>Timeout</c> 
+	    parameter of the <c>upgrade</c> or <c>suspend</c> instructions are used.
             If <c>default</c> is specified, the default value defined in
             <c>sys</c> is used.</p></item>
           <tag><c>{update_paths,Bool}</c></tag>
@@ -322,7 +329,8 @@
             effect for other application directories than the default
             <c>$ROOT/lib/App-Vsn</c>, that is, application directories
             specified in argument <c>AppDirs</c> in a call to
-            <c>create_RELEASES/4</c> or <c>set_unpacked/2</c>.</p>
+            <seealso marker="#create_RELEASES/4"><c>create_RELEASES/4</c></seealso> or 
+	    <seealso marker="#set_unpacked/2"><c>set_unpacked/2</c></seealso>.</p>
             <p><em>Example:</em></p>
             <p>In the current version <c>CurVsn</c> of a release, the
               application directory of <c>myapp</c> is
@@ -334,8 +342,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
 => {ok,NewVsn}</code>
             <p>If <c>NewVsn</c> is installed with option
               <c>{update_paths,true}</c>, then
-              <c>code:lib_dir(myapp)</c> returns
-              <c>/home/user/myapp-1.0</c>.</p></item>
+              <seealso marker="kernel:code#lib_dir/1"><c>kernel:code:lib_dir(myapp)</c></seealso> 
+	      returns <c>/home/user/myapp-1.0</c>.</p></item>
         </taglist>
 	<note>
 	  <p>Installing a new release can be time consuming if
@@ -344,12 +352,15 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
 	  before a module can be purged. This check can lead to
 	  garbage collections and copying of data.</p>
 	  <p>To speed up the execution of
-	  <c>install_release</c>, first call <seealso
+	  <seealso marker="#install_release/1"><c>install_release</c></seealso>, 
+	  first call <seealso
 	  marker="#check_install_release/1">check_install_release</seealso>,
 	  using option <c>purge</c>. This does the same
 	  check for old code. Then purges all modules that can be
 	  soft-purged. The purged modules do then no longer have any
-	  old code, and <c>install_release</c> does not need to do the
+	  old code, and 
+	  <seealso marker="#install_release/1"><c>install_release</c></seealso>
+	  does not need to do the
 	  checks.</p>
 	  <p>This does not reduce the overall time for the
 	  upgrade, but it allows checks and purge to be executed
@@ -406,8 +417,9 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
       </type>
       <desc>
         <p>Reboots the system by making the old release permanent, and
-          calls <c>init:reboot()</c> directly. The release must have
-          status <c>old</c>.</p>
+          calls 
+	  <seealso marker="erts:init#reboot/0"><c>init:reboot()</c></seealso> 
+	  directly. The release must have status <c>old</c>.</p>
       </desc>
     </func>
 
@@ -510,7 +522,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
         of <c>.appup</c> files. They are not run within the context of
         the <c>release_handler</c> process. They must therefore
         <em>not</em> be used together with calls to
-        <c>install_release/1,2</c>, as this causes the
+        <seealso marker="#install_release/1"><c>install_release/1,2</c></seealso>, 
+	as this causes the
         <c>release_handler</c> to end up in an inconsistent state.</p>
       <p>No persistent information is updated, so these functions can
         be used on any Erlang node, embedded or not. Also, using these
@@ -561,12 +574,13 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
             finding or evaluating the script</item>
         </list>
 	<p>If the <c>restart_new_emulator</c> instruction is found in
-          the script, <c>upgrade_app/2</c> returns
-          <c>{error,restart_new_emulator}</c>. This because
+          the script, 
+	  <seealso marker="#upgrade_app/2"><c>upgrade_app/2</c></seealso> 
+	  returns <c>{error,restart_new_emulator}</c>. This because
           <c>restart_new_emulator</c> requires a new version of the
           emulator to be started before the rest of the upgrade
           instructions can be executed, and this can only be done by
-          <c>install_release/1,2</c>.</p>
+          <seealso marker="#install_release/1"><c>install_release/1,2</c></seealso>.</p>
       </desc>
     </func>
 
@@ -594,7 +608,7 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
           are to be located under <c>Dir/ebin</c>. The <c>.appup</c>
           file is to be located in the <c>ebin</c> directory of
           the <em>current</em> library directory of the application
-          (<c>code:lib_dir(App)</c>).</p>
+          (<seealso marker="kernel:code#lib_dir/1"><c>code:lib_dir(App)</c></seealso>).</p>
         <p>The function looks in the <c>.appup</c> file and tries to
           find a downgrade script to the previous version of
           the application using
@@ -625,7 +639,6 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
         <v>Dir = string()</v>
         <v>NewVsn = string()</v>
         <v>Script = Instructions</v>
-	<d>See <seealso marker="appup"><c>appup(4)</c></seealso></d>
       </type>
       <desc>
         <p>Tries to find an application upgrade script for <c>App</c>
@@ -648,7 +661,9 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
           low-level instructions. The instructions are sorted in
           the same manner as when generating a <c>relup</c> file.</p>
         <p>Returns <c>{ok, NewVsn, Script}</c> if successful, where
-          <c>NewVsn</c> is the new application version.</p>
+          <c>NewVsn</c> is the new application version.
+	For details about <c>Script</c>, see 
+	<seealso marker="appup"><c>appup(4)</c></seealso>.</p>
         <p>Failure: If a script cannot be found, the function fails
           with an appropriate error reason.</p>
       </desc>
@@ -661,7 +676,6 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
         <v>App = atom()</v>
         <v>OldVsn = Dir = string()</v>
         <v>Script = Instructions</v>
-	<d>See <seealso marker="appup"><c>appup(4)</c></seealso></d>
       </type>
       <desc>
         <p>Tries to find an application downgrade script for <c>App</c>
@@ -679,13 +693,16 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
           the old <c>.app</c> file are to be located under
           <c>Dir/ebin</c>. The <c>.appup</c> file is to be located in
           the <c>ebin</c> directory of the <em>current</em> library
-          directory of the application (<c>code:lib_dir(App)</c>).</p>
+          directory of the application 
+	(<seealso marker="kernel:code#lib_dir/1"><c>code:lib_dir(App)</c>)</seealso>.</p>
         <p>The function looks in the <c>.appup</c> file and tries to
           find a downgrade script from the current application version.
           High-level instructions are translated to
           low-level instructions. The instructions are sorted in
           the same manner as when generating a <c>relup</c> file.</p>
-        <p>Returns <c>{ok, Script}</c> if successful.</p>
+        <p>Returns <c>{ok, Script}</c> if successful. 
+	For details about <c>Script</c>, see 
+	<seealso marker="appup"><c>appup(4)</c></seealso>.</p>
         <p>Failure: If a script cannot be found, the function fails
           with an appropriate error reason.</p>
       </desc>
@@ -727,12 +744,13 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
             finding or evaluating the script</item>
         </list>
         <p>If the <c>restart_new_emulator</c> instruction is found in
-          the script, <c>eval_appup_script/4</c> returns
-          <c>{error,restart_new_emulator}</c>. This because
+          the script, 
+	  <seealso marker="#eval_appup_script/4"><c>eval_appup_script/4</c></seealso>
+	  returns <c>{error,restart_new_emulator}</c>. This because
           <c>restart_new_emulator</c> requires a new version of the
           emulator to be started before the rest of the upgrade
           instructions can be executed, and this can only be done by
-          <c>install_release/1,2</c>.</p>
+          <seealso marker="#install_release/1"><c>install_release/1,2</c></seealso>.</p>
       </desc>
     </func>
   </funcs>
@@ -753,8 +771,8 @@ release_handler:set_unpacked(RelFile, [{myapp,"1.0","/home/user"},...]).
           data.</p></item>
       <tag><c>{cannot_extract_file, Name, Reason}</c></tag>
         <item><p>Problems when extracting from a tar file,
-          <c>erl_tar:extract/2</c> returned
-          <c>{error, {Name, Reason}}</c>.</p></item>
+          <seealso marker="stdlib:erl_tar#extract/2"><c>erl_tar:extract/2</c></seealso>
+	  returned <c>{error, {Name, Reason}}</c>.</p></item>
       <tag><c>{existing_release, Vsn}</c></tag>
         <item><p>Specified release version <c>Vsn</c> is already
           in use.</p></item>

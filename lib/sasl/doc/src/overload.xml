@@ -37,7 +37,9 @@
   <description>
     <p><c>overload</c> is a process that indirectly regulates the CPU
       usage in the system. The idea is that a main application calls
-      function <c>request/0</c> before starting a major job and
+      function 
+      <seealso marker="#request/0"><c>request/0</c></seealso> 
+      before starting a major job and
       proceeds with the job if the return value is positive; otherwise
       the job must not be started.</p>
     <p><c>overload</c> is part of the <c>SASL</c> application and all

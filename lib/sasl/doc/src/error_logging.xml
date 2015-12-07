@@ -83,14 +83,16 @@
 
   <section>
     <title>Crash Report</title>
-    <p>Processes started with the <c>proc_lib:spawn</c> or
-      <c>proc_lib:spawn_link</c> functions are wrapped within a
-      <c>catch</c>. A crash report is issued when such a process
-      terminates with an unexpected reason, which is any reason other
-      than <c>normal</c>, <c>shutdown</c>, or <c>{shutdown,Term}</c>.
-      Processes using the
-      <c>gen_server</c> and <c>gen_fsm</c> behaviors are examples of
-      such processes. A crash report contains the following items:</p>
+    <p>Processes started with functions 
+      <seealso marker="stdlib:proc_lib#spawn/1"><c>proc_lib:spawn</c></seealso> or
+      <seealso marker="stdlib:proc_lib#spawn_link/1"><c>proc_lib:spawn_link</c></seealso> 
+      are wrapped within a <c>catch</c>. A crash report is issued when such 
+      a process terminates with an unexpected reason, which is any reason 
+      other than <c>normal</c>, <c>shutdown</c>, or <c>{shutdown,Term}</c>.
+      Processes using behaviors
+      <seealso marker="stdlib:gen_server"><c>gen_server</c></seealso> or 
+      <seealso marker="stdlib:gen_fsm"><c>gen_fsm</c></seealso> 
+      are examples of such processes. A crash report contains the following items:</p>
     <taglist>
       <tag><c>Crasher</c></tag>
       <item><p>Information about the crashing process, such
@@ -111,7 +113,8 @@
         supervisor. A division by zero is executed and the error is
         first reported by the faulty process. A crash report is
         generated, as the process was started using function
-        <c>proc_lib:spawn/3</c>. The supervisor generates a
+        <seealso marker="stdlib:proc_lib#spawn/3"><c>proc_lib:spawn/3</c></seealso>. 
+	The supervisor generates a
         supervisor report showing the crashed process. A
         progress report is generated when the process is finally
         restarted.</p>
@@ -174,8 +177,9 @@
   <section>
     <title>Report Browser</title>
     <p>The report browser is used to browse and format error reports
-      written by the error logger handler <c>log_mf_h</c> defined in
-      <c>STDLIB</c>.</p>
+      written by the error logger handler 
+      <seealso marker="stdlib:log_mf_h"><c>log_mf_h</c></seealso> 
+      defined in <c>STDLIB</c>.</p>
     <p>The <c>log_mf_h</c> handler writes all reports to a
       report logging directory, which is specified when
       configuring the <c>SASL</c> application.</p>
@@ -188,8 +192,8 @@
     <section>
       <title>Starting Report Browser</title>
       <p>Start the <c>rb_server</c> with function
-        <c>rb:start([Options])</c> as shown in the following
-        example:</p>
+        <seealso marker="rb#start/1"><c>rb:start([Options])</c></seealso> 
+	as shown in the following example:</p>
       <pre>
         5> <input>rb:start([{max, 20}]).</input>
         rb: reading report...done.
@@ -201,13 +205,16 @@
 
     <section>
       <title>Online Help</title>
-      <p>Enter command <c>rb:help()</c> to access the report
-        browser online help system.</p>
+      <p>Enter command 
+      <seealso marker="rb#help/0"><c>rb:help()</c></seealso> 
+      to access the report browser online help system.</p>
     </section>
 
     <section>
       <title>List Reports in Server</title>
-      <p>Use function <c>rb:list()</c> to list all loaded reports:</p>
+      <p>Use function 
+      <seealso marker="rb#list/0"><c>rb:list()</c></seealso> 
+      to list all loaded reports:</p>
       <pre>
         4> <input>rb:list().</input>
         No                Type          Process       Date     Time
@@ -237,8 +244,9 @@
 
     <section>
       <title>Show Reports</title>
-      <p>Use function <c>rb:show(Number)</c> to show details of a
-        specific report:</p>
+      <p>Use function 
+      <seealso marker="rb#show/1"><c>rb:show(Number)</c></seealso> 
+      to show details of a specific report:</p>
       <pre>
 7> <input>rb:show(4).</input>
         
@@ -366,7 +374,9 @@ ok</pre>
 
     <section>
       <title>Stop Server</title>
-      <p>Use function <c>rb:stop()</c> to stop <c>rb_server</c>:</p>
+      <p>Use function 
+      <seealso marker="rb#stop/0"><c>rb:stop()</c></seealso> 
+      to stop the <c>rb_server</c>:</p>
       <pre>
 13> <input>rb:stop().</input>
 ok</pre>
