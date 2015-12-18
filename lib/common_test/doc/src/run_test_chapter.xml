@@ -1138,7 +1138,7 @@
   <section>
     <title>Running Tests from the Web-Based GUI</title>
     
-    <p>The web-based GUI, VTS, is started with the
+    <p>The web-based GUI, Virtual Test Server (VTS), is started with the
       <seealso marker="run_test_chapter#ct_run"><c>ct_run</c></seealso>
       program. From the GUI, you can load configuration files and select
       directories, suites, and cases to run. You can also state the
@@ -1266,12 +1266,6 @@
 	to any installed event handler.	For details, see section
 	<seealso marker="event_handler_chapter#event_handling">Event Handling</seealso>.
       </p>
-      
-      <p>Which information goes where is configurable by the user through the
-	test server controller. Three threshold values determine what
-	is displayed on screen, and printed in the major or minor log files.
-	The contents that goes into the HTML log file is fixed however and cannot 
-        be changed.</p>
 
       <p>The log files are written continuously during a test run and links are
 	always created initially when a test starts. Thevtest progress can therefore 
@@ -1618,7 +1612,7 @@
       
       <note><p>In the current <c>Common Test</c> version, the
 	<c>silent_connections</c> feature only works for Telnet
-	and SSH connections. Support for other connection types will be added
+	and SSH connections. Support for other connection types can be added
 	in future <c>Common Test</c> versions.</p></note>
       
   </section>

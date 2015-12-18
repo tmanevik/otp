@@ -49,7 +49,12 @@
     the event manager can match on events of interest, take action, or
     pass the information on. The event handlers are Erlang modules
     implemented by the <c>Common Test</c> user according to the <c>gen_event</c> 
-    behavior (for details, see the OTP User's Guide and Reference Manual.</p>
+    behavior (for details, see module
+    <seealso marker="stdlib:gen_event"><c>stdlib:gen_event</c></seealso> and
+    section
+    <seealso marker="doc/design_principles:events"><c>gen_event Behaviour</c></seealso>
+    in OTP Design Principles in the System Documentation).
+    </p>
 
     <p>A <c>Common Test</c> server always starts an event manager. 
     The server also plugs in a default event handler, which only
