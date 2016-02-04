@@ -56,7 +56,7 @@ $ <input>erl -sname test -kernel \</input>
     <p>Note that the default option <c>{active, true}</c> currently
       cannot be changed, for internal reasons.</p>
     <p>Addresses as inputs to functions can be either a string or a
-      tuple. For instance, the IP address 150.236.20.73 can be passed to
+      tuple. For example, the IP address 150.236.20.73 can be passed to
       <c>gethostbyaddr/1</c> either as the string "150.236.20.73"
       or as the tuple <c>{150, 236, 20, 73}</c>.</p>
     <p>IPv4 address examples:</p>
@@ -175,24 +175,24 @@ fe80::204:acff:fe17:bf38
     </func>
     <func>
       <name name="gethostbyaddr" arity="1"/>
-      <fsummary>Return a hostent record for the host with the given address</fsummary>
+      <fsummary>Return a hostent record for the host with the specified address</fsummary>
       <desc>
         <p>Returns a <c>hostent</c> record given an address.</p>
       </desc>
     </func>
     <func>
       <name name="gethostbyname" arity="1"/>
-      <fsummary>Return a hostent record for the host with the given name</fsummary>
+      <fsummary>Return a hostent record for the host with the specified name</fsummary>
       <desc>
         <p>Returns a <c>hostent</c> record given a hostname.</p>
       </desc>
     </func>
     <func>
       <name name="gethostbyname" arity="2"/>
-      <fsummary>Return a hostent record for the host with the given name</fsummary>
+      <fsummary>Return a hostent record for the host with the specified name</fsummary>
       <desc>
         <p>Returns a <c>hostent</c> record given a hostname, restricted
-          to the given address family.</p>
+          to the specified address family.</p>
       </desc>
     </func>
     <func>
@@ -240,7 +240,7 @@ fe80::204:acff:fe17:bf38
 	  </item>
 	</list>
       <p>
-	The <c>{hwaddr,_}</c> tuple is not returned on Solaris since the
+	The <c>{hwaddr,_}</c> tuple is not returned on Solaris as the
 	hardware address historically belongs to the link layer and only
 	the superuser can read such addresses.
       </p>
@@ -312,7 +312,7 @@ fe80::204:acff:fe17:bf38
             <<_:28/binary,TcpiSacked:32/native,_/binary>> = Info,
             TcpiSacked.]]></code>
         <p>Preferably, you would check the machine type, the OS
-          and the kernel version prior to executing anything similar to the
+          and the kernel version before executing anything similar to the
           code above.</p>
       </desc>
     </func>
@@ -519,7 +519,7 @@ fe80::204:acff:fe17:bf38
       <desc>
 	<p>
 	  Returns a list of all local address/port number pairs for a socket
-	  for the given association <c><anno>Assoc</anno></c>.
+	  for the specified association <c><anno>Assoc</anno></c>.
 	</p>
 	<p>
 	  This function can return multiple addresses for multihomed
@@ -600,7 +600,7 @@ fe80::204:acff:fe17:bf38
               <c>{active, N}</c> mode while the message count is greater
               than zero. Use active mode only if
               your high-level protocol provides its own flow control
-              (for instance, acknowledging received messages) or the
+              (for example, acknowledging received messages) or the
               amount of data exchanged is small. <c>{active, false}</c>
               mode, use of the <c>{active, once}</c> mode or <c>{active, N}</c>
               mode with values of <c>N</c> appropriate for the application
@@ -618,13 +618,13 @@ fe80::204:acff:fe17:bf38
 		  <item>
                     <p>The size of the user-level software buffer used by
                     the driver. Not to be confused with <c>sndbuf</c>
-                    and <c>recbuf</c> options which correspond to
+                    and <c>recbuf</c> options, which correspond to
                     the kernel socket buffers. It is recommended
                     to have <c>val(buffer) &gt;= max(val(sndbuf),val(recbuf))</c> to
                     avoid performance issues due to unnecessary copying.
                     In fact, the <c>val(buffer)</c> is automatically set to
                     the above maximum when <c>sndbuf</c> or <c>recbuf</c> values are set.
-                    However, since the actual sizes set for <c>sndbuf</c> and <c>recbuf</c>
+                    However, as the actual sizes set for <c>sndbuf</c> and <c>recbuf</c>
                     usually becomes larger, you are encouraged to use
                     <seealso marker="inet#getopts/2"><c>inet:getopts/2</c></seealso>
                      to analyze the behavior of your operating system.</p>
@@ -639,7 +639,7 @@ fe80::204:acff:fe17:bf38
               says it can handle it. Setting <c>{delay_send, true}</c>
               will make <em>all</em> messages queue up. This makes
               the messages actually sent onto the network be larger but
-              fewer. The option actually affects the scheduling of send
+              fewer. The option affects the scheduling of send
               requests versus Erlang processes instead of changing any
               real property of the socket. Needless to say it is an
               implementation specific option. Default is <c>false</c>.</p>
@@ -662,7 +662,7 @@ fe80::204:acff:fe17:bf38
             <p>By default this option is set to <c>true</c>.</p>
             <p>The only reason to set it to <c>false</c> is if you want
               to continue sending data to the socket after a close has
-              been detected, for instance if the peer has used
+              been detected, for example, if the peer has used
               <seealso marker="gen_tcp#shutdown/2">gen_tcp:shutdown/2</seealso>
               to shutdown the write side.</p>
           </item>
@@ -673,8 +673,8 @@ fe80::204:acff:fe17:bf38
               option was specified when the socket was created. If
               the <c>header</c> option is specified, the first
               <c>Size</c> number bytes of data received from the socket
-              will be elements of a list, and the rest of the data will
-              be a binary given as the tail of the same list. If for
+              will be elements of a list, and the remaining data will
+              be a binary specified as the tail of the same list. If for
               example <c>Size == 2</c>, the data received will match
               <c>[Byte1,Byte2|Binary]</c>.</p>
           </item>
@@ -761,7 +761,7 @@ fe80::204:acff:fe17:bf38
 	      So it boils down to that setting this option to <c>true</c>
 	      when creating a socket will never fail except possibly
 	      (at the time of this writing) on a platform where you
-	      have customized the kernel to only allow <c>false</c>,
+	      have changed the kernel to only allow <c>false</c>,
 	      which might be doable (but weird) on e.g. OpenBSD.
 	    </p>
 	    <p>
@@ -974,7 +974,7 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
             <p>Sets the max allowed length of the packet body. If
               the packet header indicates that the length of the packet
               is longer than the max allowed length, the packet is
-              considered invalid. The same happens if the packet header
+              considered invalid. The same occurs if the packet header
               is too big for the socket receive buffer.</p>
 	    <p>For line oriented protocols (<c>line</c>,<c>http*</c>),
 	    option <c>packet_size</c> also guarantees that lines up to the
@@ -1012,7 +1012,7 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
             <p>The minimum size of the receive buffer to use for
               the socket. You are encouraged to use
               <seealso marker="inet#getopts/2"><c>inet:getopts/2</c></seealso>,
-               to retrieve the actual size set by your operating system.
+               to retrieve the size set by your operating system.
 
             </p>
           </item>
@@ -1078,7 +1078,7 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
             <p>The minimum size of the send buffer to use for the socket.
             You are encouraged to use
             <seealso marker="inet#getopts/2"><c>inet:getopts/2</c></seealso>,
-            to retrieve the actual size set by your operating system.
+            to retrieve the size set by your operating system.
             </p>
           </item>
           <tag><c>{priority, Integer}</c></tag>
@@ -1101,11 +1101,11 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
           option specifications can be used. The raw options are
           specified as a tuple of arity four, beginning with the tag
           <c>raw</c>, followed by the protocol level, the option number
-          and the actual option value specified as a binary. This
+          and the option value specified as a binary. This
           corresponds to the second, third and fourth argument to the
           <c>setsockopt</c> call in the C socket API. The option value
-          needs to be coded in the native endianess of the platform and,
-          if a structure is required, needs to follow the struct
+          must be coded in the native endianess of the platform and,
+          if a structure is required, must follow the struct
           alignment conventions on the specific platform.</p>
         <p>Using raw socket options require detailed knowledge about
           the current operating system and TCP stack.</p>
@@ -1117,13 +1117,13 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
           socket. The <c>TCP_LINGER2</c> option is not explicitly
           supported by inet, but you know that the protocol level
           translates to the number 6, the option number to the number 8
-          and the value is to be given as a 32 bit integer. You can use
+          and the value is to be specified as a 32 bit integer. You can use
           this line of code to set the option for the socket named
           <c>Sock</c>:</p>
         <code type="none"><![CDATA[
         inet:setopts(Sock,[{raw,6,8,<<30:32/native>>}]),]]></code>
         <p>As many options are silently discarded by the stack if they
-          are given out of range, it could be a good idea to check that
+          are specified out of range, it could be a good idea to check that
           a raw option really got accepted. This code places the value
           in the variable TcpLinger2:</p>
         <code type="none"><![CDATA[
@@ -1209,7 +1209,7 @@ setcap cap_sys_admin,cap_sys_ptrace,cap_dac_read_search+epi beam.smp
       <item><c>emsgsize</c> - message too long</item>
       <item><c>emultihop</c> - multihop attempted</item>
       <item><c>enametoolong</c> - file name too long</item>
-      <item><c>enavail</c> - not available</item>
+      <item><c>enavail</c> - unavailable</item>
       <item><c>enet</c> - ENET</item>
       <item><c>enetdown</c> - network is down</item>
       <item><c>enetreset</c> - network dropped connection on reset</item>

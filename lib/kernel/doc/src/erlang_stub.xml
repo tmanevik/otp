@@ -31,13 +31,9 @@
     <rev>A</rev>
   </header>
   <module>erlang</module>
-  <modulesummary>The Erlang BIFs</modulesummary>
-  <description><p>
-
-  The module erlang is moved to the runtime system
-  application.  Please see <seealso
-  marker="erts:erlang">erlang(3)</seealso> in the
-  erts reference manual instead.
-
-  </p></description>
+  <modulesummary>The Erlang BIFs.</modulesummary>
+  <description>
+    <p>This module is moved to the 
+    <seealso marker="erts"><c>ERTS</c></seealso> application.</p>
+  </description>
 </erlref>

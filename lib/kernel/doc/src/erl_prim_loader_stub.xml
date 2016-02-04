@@ -31,13 +31,9 @@
     <rev>A</rev>
   </header>
   <module>erl_prim_loader</module>
-  <modulesummary>Low Level Erlang Loader</modulesummary>
-  <description><p>
-
-  The module erl_prim_loader is moved to the runtime system
-  application.  Please see <seealso
-  marker="erts:erl_prim_loader">erl_prim_loader(3)</seealso> in the
-  erts reference manual instead.
-
-  </p></description>
+  <modulesummary>Low-level Erlang loader.</modulesummary>
+  <description>
+    <p>This module is moved to the 
+    <seealso marker="erts"><c>ERTS</c></seealso> application.</p>
+  </description>
 </erlref>
