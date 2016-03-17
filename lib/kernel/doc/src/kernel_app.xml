@@ -37,27 +37,16 @@
     <p>The <c>Kernel</c> application is the first application started. It is
       mandatory in the sense that the minimal system based on
       Erlang/OTP consists of <c>Kernel</c> and <c>STDLIB</c>. <c>Kernel</c>
-      contains the following services:</p>
+      contains the following functional areas:</p>
     <list type="bulleted">
-      <item>application controller, see <seealso marker="application"><c>application(3)</c></seealso></item>
-      <item><c>code</c></item>
-      <item><c>disk_log</c></item>
-      <item><c>dist_ac</c>, distributed application controller</item>
-      <item><c>erl_boot_server</c></item>
-      <item><c>erl_ddll</c></item>
-      <item><c>error_logger</c></item>
-      <item><c>error_logger_format_depth</c></item>
-      <item><c>file</c></item>
-      <item><c>global</c></item>
-      <item><c>global_group</c></item>
-      <item><c>heart</c></item>
-      <item><c>inet</c></item>
-      <item><c>net_kernel</c></item>
-      <item><c>os</c></item>
-      <item><c>pg2</c></item>
-      <item><c>rpc</c></item>
-      <item><c>seq_trace</c></item>
-      <item><c>user</c></item>
+      <item>Start, stop, supervision, configuration, and distribution of applications</item>
+      <item>Code loading</item>
+      <item>Logging</item>
+      <item>Error logging</item>
+      <item>Global name service</item>
+      <item>Supervision of Erlang/OTP</item>
+      <item>Communication with sockets</item>
+      <item>Operating system interface</item>
     </list>
   </description>
 
@@ -76,8 +65,8 @@
     <taglist>
       <tag><c>browser_cmd = string() | {M,F,A}</c></tag>
       <item>
-        <p>When pressing the <em>Help</em> button in a tool such as Debugger or
-          TV, the help text (an HTML file <c>File</c>) is by default
+        <p>When pressing the <em>Help</em> button in a tool such as Debugger,
+          the help text (an HTML file <c>File</c>) is by default
           displayed in a Netscape browser, which is required to be
           operational. This parameter can be used to change the command for
           how to display the help text if another browser than Netscape

@@ -37,7 +37,7 @@
       registered as <c>error_logger</c>. Errors, warnings, and info events
       are sent to the error logger from the Erlang runtime system and
       the different Erlang/OTP applications. The events are, by default,
-      logged to <c>tty</c>. Notice that an event from a process <c>P</c> is
+      logged to the terminal. Notice that an event from a process <c>P</c> is
       logged at the node of the group leader of <c>P</c>. This means
       that log output is directed to the node from which a process was
       created, which not necessarily is the same node as where it is
@@ -46,12 +46,12 @@
       handler, which buffers and prints the raw event messages. During
       system startup, the <c>Kernel</c> application replaces this with a
       <em>standard event handler</em>, by default one that writes
-      nicely formatted output to <c>tty</c>. <c>Kernel</c> can also be 
+      nicely formatted output to the terminal. <c>Kernel</c> can also be 
       configured so that events are logged to a file instead, or not logged at all,
       see <seealso marker="kernel_app"><c>kernel(6)</c></seealso>.</p>
     <p>Also the <c>SASL</c> application, if started, adds its own event
       handler, which by default writes supervisor, crash, and progress
-      reports to <c>tty</c>. See
+      reports to the terminal. See
       <seealso marker="sasl:sasl_app"><c>sasl(6)</c></seealso>.</p>
     <p>It is recommended that user-defined applications report
       errors through the error logger to get uniform reports.
@@ -302,13 +302,13 @@ ok</pre>
     </func>
     <func>
       <name name="tty" arity="1"/>
-      <fsummary>Enable or disable printouts to the tty.</fsummary>
+      <fsummary>Enable or disable printouts to the terminal.</fsummary>
       <desc>
         <p>Enables (<c><anno>Flag</anno> == true</c>) or disables
           (<c><anno>Flag</anno> == false</c>) printout of standard events 
-	  to the <c>tty</c>.</p>
+	  to the terminal.</p>
         <p>This is done by adding or deleting the standard event handler
-          for output to <c>tty</c>. Thus, calling this function overrides
+          for output to the terminal. Thus, calling this function overrides
           the value of the <c>Kernel</c> <c>error_logger</c> configuration parameter.</p>
       </desc>
     </func>

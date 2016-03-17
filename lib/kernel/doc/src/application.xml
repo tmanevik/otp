@@ -61,7 +61,6 @@
       <name name="restart_type"/>
     </datatype>
     <datatype>
-      <!-- Parameterized opaque types are NYI: -->
       <name>tuple_of(T)</name>
       <desc><p><marker id="type-tuple_of"/>
         A tuple where the elements are of type <c>T</c>.</p></desc>

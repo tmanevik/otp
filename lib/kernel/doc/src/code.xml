@@ -758,7 +758,7 @@ rpc:call(Node, code, load_binary, [Module, Filename, Binary]),
       <name name="clash" arity="0"/>
       <fsummary>Search for modules with identical names.</fsummary>
       <desc>
-        <p>Searches the entire code space for module names with
+        <p>Searches all directories in the code path for module names with
           identical names and writes a report to <c>stdout</c>.</p>
       </desc>
     </func>
