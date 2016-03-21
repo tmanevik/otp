@@ -320,6 +320,29 @@ f.txt:  {person, "kalle", 25}.
       </desc>
     </func>
     <func>
+      <name name="datasync" arity="1"/>
+      <fsummary>Synchronize the in-memory data of a file, ignoring most of its metadata, with that on the physical medium.</fsummary>
+      <desc>
+        <p>Ensures that any buffers kept by the operating system
+          (not by the Erlang runtime system) are written to disk. In
+          many ways it resembles <c>fsync</c> but it does not update
+          some of the metadata of the file, such as the access time. On
+          some platforms this function has no effect.</p>
+        <p>Applications that access databases or log files often write
+          a tiny data fragment (for example, one line in a log file) and then
+          call <c>fsync()</c> immediately to ensure that the written
+          data is physically stored on the hard disk. Unfortunately, <c>fsync()</c>
+          always initiates two write operations: one for the newly
+          written data and another one to update the modification
+          time stored in the <c>inode</c>. If the modification time is not a part
+          of the transaction concept, <c>fdatasync()</c> can be used to avoid
+          unnecessary <c>inode</c> disk write operations.</p>
+        <p>Available only in some POSIX systems, this call results in a
+          call to <c>fsync()</c>, or has no effect in systems not providing
+          the <c>fdatasync()</c> syscall.</p>
+      </desc>
+    </func>
+    <func>
       <name name="del_dir" arity="1"/>
       <fsummary>Delete a directory.</fsummary>
       <desc>
@@ -1750,6 +1773,50 @@ f.txt:  {person, "kalle", 25}.
       </desc>
     </func>
     <func>
+      <name name="sendfile" arity="2"/>
+      <fsummary>Send a file to a socket.</fsummary>
+      <desc>
+        <p>Sends the file <c>Filename</c> to <c>Socket</c>.
+        Returns <c>{ok, BytesSent}</c> if successful,
+        otherwise <c>{error, Reason}</c>.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="sendfile" arity="5"/>
+      <fsummary>Send a file to a socket.</fsummary>
+      <type name="sendfile_option"/>
+      <desc>
+        <p>Sends <c>Bytes</c> from the file
+        referenced by <c>RawFile</c> beginning at <c>Offset</c> to
+        <c>Socket</c>.
+        Returns <c>{ok, BytesSent}</c> if successful,
+        otherwise <c>{error, Reason}</c>. If <c>Bytes</c> is set to
+	<c>0</c> all data after the specified <c>Offset</c> is sent.</p>
+	<p>The file used must be opened using the <c>raw</c> flag, and the process
+	calling <c>sendfile</c> must be the controlling process of the socket.
+	See <seealso marker="gen_tcp#controlling_process-2"><c>gen_tcp:controlling_process/2</c></seealso>.</p>
+	<p>If the OS used does not support <c>sendfile</c>, an Erlang fallback
+	using 
+	<seealso marker="#read/2"><c>read/2</c></seealso> and 
+	<seealso marker="gen_tcp#send/2"><c>gen_tcp:send/2</c></seealso> is used.</p>
+	<p>The option list can contain the following options:</p>
+	<taglist>
+          <tag><c>chunk_size</c></tag>
+          <item><p>The chunk size used by the Erlang fallback to send
+	  data. If using the fallback, set this to a value
+	  that comfortably fits in the systems memory. Default is 20 MB.</p></item>
+	  <tag><c>use_threads</c></tag>
+          <item><p>Instructs the emulator to use the <c>async</c> thread pool for the
+	  <c>sendfile</c> system call. This can be useful if the OS you are running
+	  on does not properly support non-blocking <c>sendfile</c> calls. Notice that
+	  using <c>async</c> threads potentially makes your system vulnerable to slow
+	  client attacks. If set to <c>true</c> and no <c>async</c> threads are available,
+	  the <c>sendfile</c> call returns <c>{error,einval}</c>.
+	  Introduced in Erlang/OTP 17.0. Default is <c>false</c>.</p></item>
+	</taglist>
+      </desc>
+    </func>
+    <func>
       <name name="set_cwd" arity="1"/>
       <fsummary>Set the current working directory.</fsummary>
       <desc>
@@ -1813,79 +1880,12 @@ f.txt:  {person, "kalle", 25}.
       </desc>
     </func>
     <func>
-      <name name="datasync" arity="1"/>
-      <fsummary>Synchronize the in-memory data of a file, ignoring most of its metadata, with that on the physical medium.</fsummary>
-      <desc>
-        <p>Ensures that any buffers kept by the operating system
-          (not by the Erlang runtime system) are written to disk. In
-          many ways it resembles <c>fsync</c> but it does not update
-          some of the metadata of the file, such as the access time. On
-          some platforms this function has no effect.</p>
-        <p>Applications that access databases or log files often write
-          a tiny data fragment (for example, one line in a log file) and then
-          call <c>fsync()</c> immediately to ensure that the written
-          data is physically stored on the hard disk. Unfortunately, <c>fsync()</c>
-          always initiates two write operations: one for the newly
-          written data and another one to update the modification
-          time stored in the <c>inode</c>. If the modification time is not a part
-          of the transaction concept, <c>fdatasync()</c> can be used to avoid
-          unnecessary <c>inode</c> disk write operations.</p>
-        <p>Available only in some POSIX systems, this call results in a
-          call to <c>fsync()</c>, or has no effect in systems not providing
-          the <c>fdatasync()</c> syscall.</p>
-      </desc>
-    </func>
-    <func>
       <name name="truncate" arity="1"/>
       <fsummary>Truncate a file.</fsummary>
       <desc>
         <p>Truncates the file referenced by <c><anno>IoDevice</anno></c> at
           the current position. Returns <c>ok</c> if successful,
           otherwise <c>{error, <anno>Reason</anno>}</c>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="sendfile" arity="2"/>
-      <fsummary>Send a file to a socket.</fsummary>
-      <desc>
-        <p>Sends the file <c>Filename</c> to <c>Socket</c>.
-        Returns <c>{ok, BytesSent}</c> if successful,
-        otherwise <c>{error, Reason}</c>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="sendfile" arity="5"/>
-      <fsummary>Send a file to a socket.</fsummary>
-      <type name="sendfile_option"/>
-      <desc>
-        <p>Sends <c>Bytes</c> from the file
-        referenced by <c>RawFile</c> beginning at <c>Offset</c> to
-        <c>Socket</c>.
-        Returns <c>{ok, BytesSent}</c> if successful,
-        otherwise <c>{error, Reason}</c>. If <c>Bytes</c> is set to
-	<c>0</c> all data after the specified <c>Offset</c> is sent.</p>
-	<p>The file used must be opened using the <c>raw</c> flag, and the process
-	calling <c>sendfile</c> must be the controlling process of the socket.
-	See <seealso marker="gen_tcp#controlling_process-2"><c>gen_tcp:controlling_process/2</c></seealso>.</p>
-	<p>If the OS used does not support <c>sendfile</c>, an Erlang fallback
-	using 
-	<seealso marker="#read/2"><c>read/2</c></seealso> and 
-	<seealso marker="gen_tcp#send/2"><c>gen_tcp:send/2</c></seealso> is used.</p>
-	<p>The option list can contain the following options:</p>
-	<taglist>
-          <tag><c>chunk_size</c></tag>
-          <item><p>The chunk size used by the Erlang fallback to send
-	  data. If using the fallback, set this to a value
-	  that comfortably fits in the systems memory. Default is 20 MB.</p></item>
-	  <tag><c>use_threads</c></tag>
-          <item><p>Instructs the emulator to use the <c>async</c> thread pool for the
-	  <c>sendfile</c> system call. This can be useful if the OS you are running
-	  on does not properly support non-blocking <c>sendfile</c> calls. Notice that
-	  using <c>async</c> threads potentially makes your system vulnerable to slow
-	  client attacks. If set to <c>true</c> and no <c>async</c> threads are available,
-	  the <c>sendfile</c> call returns <c>{error,einval}</c>.
-	  Introduced in Erlang/OTP 17.0. Default is <c>false</c>.</p></item>
-	</taglist>
       </desc>
     </func>
     <func>

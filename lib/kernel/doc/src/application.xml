@@ -68,6 +68,34 @@
   </datatypes>
   <funcs>
     <func>
+        <name name="ensure_all_started" arity="1"/>
+        <name name="ensure_all_started" arity="2"/>
+        <fsummary>Load and start an application and its dependencies, recursively.</fsummary>
+        <desc>
+          <p>Equivalent to calling 
+	  <seealso marker="#start/1"><c>start/1,2</c></seealso>
+          repeatedly on all dependencies that are not yet started for an application.</p>
+          <p>Returns <c>{ok, AppNames}</c> for a successful start or for an already started
+          application (which is however omitted from the <c>AppNames</c> list).</p>
+	  <p>The function reports <c>{error, {AppName,Reason}}</c> for errors, where 
+	  <c>Reason</c> is any possible reason returned by 
+	  <seealso marker="#start/1"><c>start/1,2</c></seealso> 
+	  when starting a specific dependency.</p>
+	  <p>If an error occurs, the applications started by the function are stopped 
+	  to bring the set of running applications back to its initial state.</p>
+        </desc>
+    </func>
+    <func>
+      <name name="ensure_started" arity="1"/>
+      <name name="ensure_started" arity="2"/>
+      <fsummary>Load and start an application.</fsummary>
+      <desc>
+	<p>Equivalent to 
+	<seealso marker="#start/1"><c>start/1,2</c></seealso>
+	except it returns <c>ok</c> for already started applications.</p>
+      </desc>
+    </func>
+    <func>
       <name name="get_all_env" arity="0"/>
       <name name="get_all_env" arity="1"/>
       <fsummary>Get the configuration parameters for an application.</fsummary>
@@ -272,34 +300,6 @@ Nodes = [cp1@cave, {cp2@cave, cp3@cave}]</code>
             weird, inconsistent, and malfunctioning state.</p>
         </warning>
       </desc>
-    </func>
-    <func>
-      <name name="ensure_started" arity="1"/>
-      <name name="ensure_started" arity="2"/>
-      <fsummary>Load and start an application.</fsummary>
-      <desc>
-	<p>Equivalent to 
-	<seealso marker="#start/1"><c>start/1,2</c></seealso>
-	except it returns <c>ok</c> for already started applications.</p>
-      </desc>
-    </func>
-    <func>
-        <name name="ensure_all_started" arity="1"/>
-        <name name="ensure_all_started" arity="2"/>
-        <fsummary>Load and start an application and its dependencies, recursively.</fsummary>
-        <desc>
-          <p>Equivalent to calling 
-	  <seealso marker="#start/1"><c>start/1,2</c></seealso>
-          repeatedly on all dependencies that are not yet started for an application.</p>
-          <p>Returns <c>{ok, AppNames}</c> for a successful start or for an already started
-          application (which is however omitted from the <c>AppNames</c> list).</p>
-	  <p>The function reports <c>{error, {AppName,Reason}}</c> for errors, where 
-	  <c>Reason</c> is any possible reason returned by 
-	  <seealso marker="#start/1"><c>start/1,2</c></seealso> 
-	  when starting a specific dependency.</p>
-	  <p>If an error occurs, the applications started by the function are stopped 
-	  to bring the set of running applications back to its initial state.</p>
-        </desc>
     </func>
     <func>
       <name name="start" arity="1"/>

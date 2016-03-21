@@ -212,6 +212,23 @@
       </desc>
     </func>
     <func>
+      <name name="format_error" arity="1"/>
+      <fsummary>Format an error descriptor.</fsummary>
+      <desc>
+        <p>Takes an <c><anno>ErrorDesc</anno></c> returned by load, unload, or
+          reload functions and returns a string that
+          describes the error or warning.</p>
+        <note>
+          <p>Because of peculiarities in the dynamic loading interfaces on
+            different platforms, the returned string is only guaranteed
+            to describe the correct error <em>if format_error/1 is called 
+	    in the same instance of the Erlang virtual machine as the error 
+	    appeared in</em> (meaning the same operating
+            system process).</p>
+        </note>
+      </desc>
+    </func>
+    <func>
       <name name="info" arity="0"/>
       <fsummary>Retrieve information about all drivers.</fsummary>
       <desc>
@@ -393,6 +410,18 @@
           gives the same effect regarding the port killing.</p>
         <p>The function throws a <c>badarg</c> exception if the
           parameters are not specified as described here.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="loaded_drivers" arity="0"/>
+      <fsummary>List loaded drivers.</fsummary>
+      <desc>
+        <p>Returns a list of all the available drivers, both
+          (statically) linked-in and dynamically loaded ones.</p>
+        <p>The driver names are returned as a list of strings rather
+          than a list of atoms for historical reasons.</p>
+        <p>For more information about drivers, see
+          <seealso marker="#info/0"><c>info</c></seealso>.</p>
       </desc>
     </func>
     <func>
@@ -1140,37 +1169,7 @@
           parameters are not specified as described here.</p>
       </desc>
     </func>
-    <func>
-      <name name="loaded_drivers" arity="0"/>
-      <fsummary>List loaded drivers.</fsummary>
-      <desc>
-        <p>Returns a list of all the available drivers, both
-          (statically) linked-in and dynamically loaded ones.</p>
-        <p>The driver names are returned as a list of strings rather
-          than a list of atoms for historical reasons.</p>
-        <p>For more information about drivers, see
-          <seealso marker="#info/0"><c>info</c></seealso>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="format_error" arity="1"/>
-      <fsummary>Format an error descriptor.</fsummary>
-      <desc>
-        <p>Takes an <c><anno>ErrorDesc</anno></c> returned by load, unload, or
-          reload functions and returns a string that
-          describes the error or warning.</p>
-        <note>
-          <p>Because of peculiarities in the dynamic loading interfaces on
-            different platforms, the returned string is only guaranteed
-            to describe the correct error <em>if format_error/1 is called 
-	    in the same instance of the Erlang virtual machine as the error 
-	    appeared in</em> (meaning the same operating
-            system process).</p>
-        </note>
-      </desc>
-    </func>
   </funcs>
-
   <section>
     <title>See Also</title>
     <p><seealso marker="erts:erl_driver"><c>erts:erl_driver(4)</c></seealso>,

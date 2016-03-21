@@ -52,6 +52,21 @@
   </description>
   <funcs>
     <func>
+      <name name="add_slave" arity="1"/>
+      <fsummary>Add a slave to the list of allowed slaves.</fsummary>
+      <desc>
+        <p>Adds a <c><anno>Slave</anno></c> node to the list of allowed slave hosts.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="delete_slave" arity="1"/>
+      <fsummary>Delete a slave from the list of allowed slaves.</fsummary>
+      <desc>
+        <p>Deletes a <c><anno>Slave</anno></c> node from the list of allowed slave
+          hosts.</p>
+      </desc>
+    </func>
+    <func>
       <name name="start" arity="1"/>
       <fsummary>Start the boot server.</fsummary>
       <desc>
@@ -70,21 +85,6 @@
       </desc>
     </func>
     <func>
-      <name name="add_slave" arity="1"/>
-      <fsummary>Add a slave to the list of allowed slaves.</fsummary>
-      <desc>
-        <p>Adds a <c><anno>Slave</anno></c> node to the list of allowed slave hosts.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="delete_slave" arity="1"/>
-      <fsummary>Delete a slave from the list of allowed slaves.</fsummary>
-      <desc>
-        <p>Deletes a <c><anno>Slave</anno></c> node from the list of allowed slave
-          hosts.</p>
-      </desc>
-    </func>
-    <func>
       <name name="which_slaves" arity="0"/>
       <fsummary>Return the current list of allowed slave hosts.</fsummary>
       <desc>
@@ -92,7 +92,6 @@
       </desc>
     </func>
   </funcs>
-
   <section>
     <title>SEE ALSO</title>
     <p><seealso marker="erts:init"><c>erts:init(3)</c></seealso>,  

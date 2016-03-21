@@ -75,6 +75,32 @@
   </datatypes>
   <funcs>
     <func>
+      <name name="add_report_handler" arity="1"/>
+      <name name="add_report_handler" arity="2"/>
+      <fsummary>Add an event handler to the error logger.</fsummary>
+      <desc>
+        <p>Adds a new event handler to the error logger. The event
+          handler must be implemented as a <c>gen_event</c> callback
+          module, see
+          <seealso marker="stdlib:gen_event"><c>stdlib:gen_event(3)</c></seealso>.</p>
+        <p><c><anno>Handler</anno></c> is typically the name of the callback module
+          and <c><anno>Args</anno></c> is an optional term (defaults to []) passed
+          to the initialization callback function <c><anno>Handler</anno>:init/1</c>.
+          The function returns <c>ok</c> if successful.</p>
+        <p>The event handler must be able to handle the events in this module, see
+          section <seealso marker="#events">Events</seealso>.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="delete_report_handler" arity="1"/>
+      <fsummary>Delete an event handler from the error logger.</fsummary>
+      <desc>
+        <p>Deletes an event handler from the error logger by calling
+          <c>gen_event:delete_handler(error_logger, <anno>Handler</anno>, [])</c>,
+          see <seealso marker="stdlib:gen_event"><c>stdlib:gen_event(3)</c></seealso>.</p>
+      </desc>
+    </func>
+    <func>
       <name name="error_msg" arity="1"/>
       <name name="error_msg" arity="2"/>
       <name name="format" arity="2"/>
@@ -134,6 +160,121 @@ ok</pre>
         <p>It is recommended that <c><anno>Report</anno></c> follows the same
           structure as for 
 	<seealso marker="#error_report/1"><c>error_report/1</c></seealso>.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="info_msg" arity="1"/>
+      <name name="info_msg" arity="2"/>
+      <fsummary>Send a standard information event to the error logger.</fsummary>
+      <desc>
+        <p>Sends a standard information event to the error logger.
+          The <c><anno>Format</anno></c> and <c><anno>Data</anno></c> arguments 
+	  are the same as the arguments of 
+	  <seealso marker="stdlib:io#format/2"><c>io:format/2</c></seealso>
+	  in <c>STDLIB</c>. The event is handled by the standard event handler.</p>
+	<p><em>Example:</em></p>
+        <pre>
+1> <input>error_logger:info_msg("Something happened in ~p~n", [a_module]).</input>
+
+=INFO REPORT==== 11-Aug-2005::14:06:15 ===
+Something happened in a_module
+ok</pre>
+        <warning>
+          <p>If called with bad arguments, this function can crash
+            the standard event handler, meaning no further events are
+            logged. When in doubt, use <c>info_report/1</c> instead.</p>
+        </warning>
+      </desc>
+    </func>
+    <func>
+      <name name="info_report" arity="1"/>
+      <fsummary>Send a standard information report event to the error logger.</fsummary>
+      <desc>
+        <p>Sends a standard information report event to the error
+          logger. The event is handled by the standard event handler.</p>
+	<p><em>Example:</em></p>
+        <pre>
+2> <input>error_logger:info_report([{tag1,data1},a_term,{tag2,data}]).</input>
+
+=INFO REPORT==== 11-Aug-2005::13:55:09 ===
+    tag1: data1
+    a_term
+    tag2: data
+ok
+3> <input>error_logger:info_report("Something strange happened").</input>
+
+=INFO REPORT==== 11-Aug-2005::13:55:36 ===
+Something strange happened
+ok</pre>
+      </desc>
+    </func>
+    <func>
+      <name name="info_report" arity="2"/>
+      <fsummary>Send a user-defined information report event to the error logger.</fsummary>
+      <desc>
+        <p>Sends a user-defined information report event to the error
+          logger. An event handler to handle the event is supposed to
+          have been added. The event is ignored by the standard event
+          handler.</p>
+        <p>It is recommended that <c><anno>Report</anno></c> follows the same
+          structure as for 
+	<seealso marker="#info_report/1"><c>info_report/1</c></seealso>.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="logfile" arity="1" clause_i="1"/>
+      <name name="logfile" arity="1" clause_i="2"/>
+      <name name="logfile" arity="1" clause_i="3"/>
+      <fsummary>Enable or disable error printouts to a file.</fsummary>
+      <type variable="Filename"/>
+      <type variable="OpenReason" name_i="1"/>
+      <type variable="CloseReason" name_i="2"/>
+      <type variable="FilenameReason" name_i="3"/>
+      <type name="open_error"/>
+      <desc>
+        <p>Enables or disables printout of standard events to a file.</p>
+        <p>This is done by adding or deleting the standard event handler
+          for output to file. Thus, calling this function overrides
+          the value of the <c>Kernel</c> <c>error_logger</c> configuration
+          parameter.</p>
+        <p>Enabling file logging can be used together with calling
+          <c>tty(false)</c>, to have a silent system where
+          all standard events are logged to a file only.
+          Only one log file can be active at a time.</p>
+        <p><c>Request</c> is one of the following:</p>
+        <taglist>
+          <tag><c>{open, <anno>Filename</anno>}</c></tag>
+          <item>
+            <p>Opens log file <c><anno>Filename</anno></c>. Returns <c>ok</c> if
+              successful, or <c>{error, allready_have_logfile}</c> if
+              logging to file is already enabled, or an error tuple if
+              another error occurred (for example, if <c><anno>Filename</anno></c>
+              cannot be opened).</p>
+          </item>
+          <tag><c>close</c></tag>
+          <item>
+            <p>Closes the current log file. Returns <c>ok</c>, or
+              <c>{error, module_not_found}</c>.</p>
+          </item>
+          <tag><c>filename</c></tag>
+          <item>
+            <p>Returns the name of the log file <c><anno>Filename</anno></c>, or
+              <c>{error, no_log_file}</c> if logging to file is not
+              enabled.</p>
+          </item>
+        </taglist>
+      </desc>
+    </func>
+    <func>
+      <name name="tty" arity="1"/>
+      <fsummary>Enable or disable printouts to the terminal.</fsummary>
+      <desc>
+        <p>Enables (<c><anno>Flag</anno> == true</c>) or disables
+          (<c><anno>Flag</anno> == false</c>) printout of standard events 
+	  to the terminal.</p>
+        <p>This is done by adding or deleting the standard event handler
+          for output to the terminal. Thus, calling this function overrides
+          the value of the <c>Kernel</c> <c>error_logger</c> configuration parameter.</p>
       </desc>
     </func>
     <func>
@@ -215,147 +356,6 @@ ok</pre>
           <seealso marker="#warning_map/0"><c>warning_map/0</c></seealso>.</p>
       </desc>
     </func>
-    <func>
-      <name name="info_msg" arity="1"/>
-      <name name="info_msg" arity="2"/>
-      <fsummary>Send a standard information event to the error logger.</fsummary>
-      <desc>
-        <p>Sends a standard information event to the error logger.
-          The <c><anno>Format</anno></c> and <c><anno>Data</anno></c> arguments 
-	  are the same as the arguments of 
-	  <seealso marker="stdlib:io#format/2"><c>io:format/2</c></seealso>
-	  in <c>STDLIB</c>. The event is handled by the standard event handler.</p>
-	<p><em>Example:</em></p>
-        <pre>
-1> <input>error_logger:info_msg("Something happened in ~p~n", [a_module]).</input>
-
-=INFO REPORT==== 11-Aug-2005::14:06:15 ===
-Something happened in a_module
-ok</pre>
-        <warning>
-          <p>If called with bad arguments, this function can crash
-            the standard event handler, meaning no further events are
-            logged. When in doubt, use <c>info_report/1</c> instead.</p>
-        </warning>
-      </desc>
-    </func>
-    <func>
-      <name name="info_report" arity="1"/>
-      <fsummary>Send a standard information report event to the error logger.</fsummary>
-      <desc>
-        <p>Sends a standard information report event to the error
-          logger. The event is handled by the standard event handler.</p>
-	<p><em>Example:</em></p>
-        <pre>
-2> <input>error_logger:info_report([{tag1,data1},a_term,{tag2,data}]).</input>
-
-=INFO REPORT==== 11-Aug-2005::13:55:09 ===
-    tag1: data1
-    a_term
-    tag2: data
-ok
-3> <input>error_logger:info_report("Something strange happened").</input>
-
-=INFO REPORT==== 11-Aug-2005::13:55:36 ===
-Something strange happened
-ok</pre>
-      </desc>
-    </func>
-    <func>
-      <name name="info_report" arity="2"/>
-      <fsummary>Send a user-defined information report event to the error logger.</fsummary>
-      <desc>
-        <p>Sends a user-defined information report event to the error
-          logger. An event handler to handle the event is supposed to
-          have been added. The event is ignored by the standard event
-          handler.</p>
-        <p>It is recommended that <c><anno>Report</anno></c> follows the same
-          structure as for 
-	<seealso marker="#info_report/1"><c>info_report/1</c></seealso>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="add_report_handler" arity="1"/>
-      <name name="add_report_handler" arity="2"/>
-      <fsummary>Add an event handler to the error logger.</fsummary>
-      <desc>
-        <p>Adds a new event handler to the error logger. The event
-          handler must be implemented as a <c>gen_event</c> callback
-          module, see
-          <seealso marker="stdlib:gen_event"><c>stdlib:gen_event(3)</c></seealso>.</p>
-        <p><c><anno>Handler</anno></c> is typically the name of the callback module
-          and <c><anno>Args</anno></c> is an optional term (defaults to []) passed
-          to the initialization callback function <c><anno>Handler</anno>:init/1</c>.
-          The function returns <c>ok</c> if successful.</p>
-        <p>The event handler must be able to handle the events in this module, see
-          section <seealso marker="#events">Events</seealso>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="delete_report_handler" arity="1"/>
-      <fsummary>Delete an event handler from the error logger.</fsummary>
-      <desc>
-        <p>Deletes an event handler from the error logger by calling
-          <c>gen_event:delete_handler(error_logger, <anno>Handler</anno>, [])</c>,
-          see <seealso marker="stdlib:gen_event"><c>stdlib:gen_event(3)</c></seealso>.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="tty" arity="1"/>
-      <fsummary>Enable or disable printouts to the terminal.</fsummary>
-      <desc>
-        <p>Enables (<c><anno>Flag</anno> == true</c>) or disables
-          (<c><anno>Flag</anno> == false</c>) printout of standard events 
-	  to the terminal.</p>
-        <p>This is done by adding or deleting the standard event handler
-          for output to the terminal. Thus, calling this function overrides
-          the value of the <c>Kernel</c> <c>error_logger</c> configuration parameter.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="logfile" arity="1" clause_i="1"/>
-      <name name="logfile" arity="1" clause_i="2"/>
-      <name name="logfile" arity="1" clause_i="3"/>
-      <fsummary>Enable or disable error printouts to a file.</fsummary>
-      <type variable="Filename"/>
-      <type variable="OpenReason" name_i="1"/>
-      <type variable="CloseReason" name_i="2"/>
-      <type variable="FilenameReason" name_i="3"/>
-      <type name="open_error"/>
-      <desc>
-        <p>Enables or disables printout of standard events to a file.</p>
-        <p>This is done by adding or deleting the standard event handler
-          for output to file. Thus, calling this function overrides
-          the value of the <c>Kernel</c> <c>error_logger</c> configuration
-          parameter.</p>
-        <p>Enabling file logging can be used together with calling
-          <c>tty(false)</c>, to have a silent system where
-          all standard events are logged to a file only.
-          Only one log file can be active at a time.</p>
-        <p><c>Request</c> is one of the following:</p>
-        <taglist>
-          <tag><c>{open, <anno>Filename</anno>}</c></tag>
-          <item>
-            <p>Opens log file <c><anno>Filename</anno></c>. Returns <c>ok</c> if
-              successful, or <c>{error, allready_have_logfile}</c> if
-              logging to file is already enabled, or an error tuple if
-              another error occurred (for example, if <c><anno>Filename</anno></c>
-              cannot be opened).</p>
-          </item>
-          <tag><c>close</c></tag>
-          <item>
-            <p>Closes the current log file. Returns <c>ok</c>, or
-              <c>{error, module_not_found}</c>.</p>
-          </item>
-          <tag><c>filename</c></tag>
-          <item>
-            <p>Returns the name of the log file <c><anno>Filename</anno></c>, or
-              <c>{error, no_log_file}</c> if logging to file is not
-              enabled.</p>
-          </item>
-        </taglist>
-      </desc>
-    </func>
   </funcs>
 
   <section>
@@ -414,7 +414,6 @@ ok</pre>
       <c>Module:handle_info/2</c>, as the event handler must also take care of
       some system-internal messages.</p>
   </section>
-
   <section>
     <title>See Also</title>
     <p><seealso marker="stdlib:gen_event"><c>stdlib:gen_event(3)</c></seealso>,

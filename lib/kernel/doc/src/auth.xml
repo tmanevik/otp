@@ -42,19 +42,6 @@
   </datatypes>
   <funcs>
     <func>
-      <name name="is_auth" arity="1"/>
-      <fsummary>Status of communication authorization (deprecated).</fsummary>
-      <desc>
-        <p>Returns <c>yes</c> if communication with <c><anno>Node</anno></c> is
-          authorized. Notice that a connection to <c><anno>Node</anno></c>
-          is established in this case. Returns <c>no</c> if <c><anno>Node</anno></c>
-          does not exist or communication is not authorized (it has
-          another cookie than <c>auth</c> thinks it has).</p>
-        <p>Use <seealso marker="net_adm#ping/1"><c>net_adm:ping(<anno>Node</anno>)</c></seealso>
-          instead.</p>
-      </desc>
-    </func>
-    <func>
       <name name="cookie" arity="0"/>
       <fsummary>Magic cookie for local node (deprecated).</fsummary>
       <desc>
@@ -73,6 +60,19 @@
         <p>Use
           <seealso marker="erts:erlang#erlang:set_cookie/2"><c>erlang:set_cookie(node(), <anno>Cookie</anno>)</c> 
 	  in <c>ERTS</c></seealso> instead.</p>
+      </desc>
+    </func>
+    <func>
+      <name name="is_auth" arity="1"/>
+      <fsummary>Status of communication authorization (deprecated).</fsummary>
+      <desc>
+        <p>Returns <c>yes</c> if communication with <c><anno>Node</anno></c> is
+          authorized. Notice that a connection to <c><anno>Node</anno></c>
+          is established in this case. Returns <c>no</c> if <c><anno>Node</anno></c>
+          does not exist or communication is not authorized (it has
+          another cookie than <c>auth</c> thinks it has).</p>
+        <p>Use <seealso marker="net_adm#ping/1"><c>net_adm:ping(<anno>Node</anno>)</c></seealso>
+          instead.</p>
       </desc>
     </func>
     <func>

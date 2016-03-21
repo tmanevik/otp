@@ -38,6 +38,19 @@
   </description>
   <funcs>
     <func>
+      <name name="raise_undef_exception" arity="3"/>
+      <fsummary>Raise an undef exception.</fsummary>
+      <type_desc variable="Args">
+        A (possibly empty) list of arguments <c>Arg1,..,ArgN</c>
+      </type_desc>
+      <desc>
+	<p>Raises an <c>undef</c> exception with a stacktrace, indicating
+	that <c><anno>Module</anno>:<anno>Function</anno>/N</c> is
+	undefined.
+	</p>
+      </desc>
+    </func>
+    <func>
       <name name="undefined_function" arity="3"/>
       <fsummary>Called when an undefined function is encountered.</fsummary>
       <type_desc variable="Args">
@@ -77,19 +90,6 @@
 	  </p>
 	</warning>
 	<p>Otherwise an <c>undef</c> exception is raised.</p>
-      </desc>
-    </func>
-    <func>
-      <name name="raise_undef_exception" arity="3"/>
-      <fsummary>Raise an undef exception.</fsummary>
-      <type_desc variable="Args">
-        A (possibly empty) list of arguments <c>Arg1,..,ArgN</c>
-      </type_desc>
-      <desc>
-	<p>Raises an <c>undef</c> exception with a stacktrace, indicating
-	that <c><anno>Module</anno>:<anno>Function</anno>/N</c> is
-	undefined.
-	</p>
       </desc>
     </func>
     <func>
